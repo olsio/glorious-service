@@ -1,18 +1,15 @@
-package glo
+package glo.models
 
-import glo.UserRegistryActor.ActionPerformed
-
-//#json-support
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import spray.json.DefaultJsonProtocol
+import glo.repositories.UserRegistryActor.ActionPerformed
+import glo.repositories.{User, Users}
 
 trait JsonSupport extends SprayJsonSupport {
-  // import the default encoders for primitive types (Int, String, Lists etc)
-  import DefaultJsonProtocol._
+
+  import glo.models.JsonProtocols._
 
   implicit val userJsonFormat = jsonFormat3(User)
   implicit val usersJsonFormat = jsonFormat1(Users)
-
   implicit val actionPerformedJsonFormat = jsonFormat1(ActionPerformed)
+  implicit val accessTokenJsonFormat = AccessTokenJsonFormat
 }
-//#json-support

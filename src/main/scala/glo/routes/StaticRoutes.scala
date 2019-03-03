@@ -1,4 +1,4 @@
-package glo
+package glo.routes
 
 import akka.http.scaladsl.server.Directives._
 
@@ -12,4 +12,3 @@ trait StaticRoutes {
     }
   }
 }
-

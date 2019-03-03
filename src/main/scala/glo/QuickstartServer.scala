@@ -1,16 +1,18 @@
 package glo
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import glo.repositories.UserRegistryActor
+import glo.routes.{LoginRoute, StaticRoutes, UserRoutes}
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{ Await, ExecutionContext, Future }
-import scala.util.{ Failure, Properties, Success }
+import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.util.{Failure, Properties, Success}
 
-object QuickstartServer extends App with UserRoutes with StaticRoutes {
+object QuickstartServer extends App with UserRoutes with StaticRoutes with LoginRoute {
 
   implicit val system: ActorSystem = ActorSystem("helloAkkaHttpServer")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
@@ -18,7 +20,7 @@ object QuickstartServer extends App with UserRoutes with StaticRoutes {
 
   val userRegistryActor: ActorRef = system.actorOf(UserRegistryActor.props, "userRegistryActor")
 
-  lazy val routes: Route = staticRoutes ~ userRoutes
+  lazy val routes: Route = staticRoutes ~ userRoutes ~ loginRoute
 
   val port = Properties.envOrElse("PORT", "8080").toInt
 

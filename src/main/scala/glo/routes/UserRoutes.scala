@@ -1,16 +1,18 @@
-package glo
+package glo.routes
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ActorRef, ActorSystem}
 import akka.event.Logging
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import akka.http.scaladsl.server.directives.MethodDirectives.{ delete, get, post }
+import akka.http.scaladsl.server.directives.MethodDirectives.{delete, get, post}
 import akka.http.scaladsl.server.directives.PathDirectives.path
 import akka.http.scaladsl.server.directives.RouteDirectives.complete
 import akka.pattern.ask
 import akka.util.Timeout
-import glo.UserRegistryActor._
+import glo.models.JsonSupport
+import glo.repositories.UserRegistryActor._
+import glo.repositories.{User, Users}
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
