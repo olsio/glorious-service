@@ -1,1 +1,1 @@
-# glorious
+# glorious-service
